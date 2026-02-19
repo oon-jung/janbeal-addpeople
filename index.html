@@ -922,8 +922,8 @@ body {
 /* ═══════════════════════════════════════
    HIDDEN SCENES
    ═══════════════════════════════════════ */
-.scene-hidden {
-  display: none;
+.scene.scene-hidden {
+  display: none !important;
 }
 
 /* ═══════════════════════════════════════
@@ -1106,7 +1106,7 @@ body {
   </div>
 
   <!-- SCENE 7: ENDING -->
-  <div id="scene7" class="scene">
+  <div id="scene7" class="scene scene-hidden">
     <canvas id="cvS7"></canvas>
     <div class="scene-content">
       <div class="end-card">
