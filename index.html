@@ -170,13 +170,13 @@ body {
 .s1-title {
   font-family: 'KOTRA LEAP', sans-serif;
   font-weight: normal;
-  font-size: clamp(2.4rem, 9vw, 3.4rem);
+  font-size: clamp(3rem, 12vw, 4.5rem);
   color: #ffffff;
-  letter-spacing: .15em;
+  letter-spacing: .18em;
   text-shadow:
-    0 0 30px rgba(100,180,255,.3),
-    0 0 60px rgba(120,80,255,.15),
-    0 0 100px rgba(255,100,180,.08);
+    0 0 40px rgba(100,180,255,.35),
+    0 0 80px rgba(120,80,255,.2),
+    0 0 120px rgba(255,100,180,.1);
   opacity: 0;
   transform: translateY(16px);
 }
@@ -431,16 +431,16 @@ body {
 }
 
 .form-title {
-  font-size: .82rem;
+  font-size: .85rem;
   font-weight: 400;
-  color: rgba(100,180,255,.55);
+  color: rgba(100,180,255,.75);
   text-align: center;
   margin-bottom: 4px;
 }
 
 .form-sub {
-  font-size: .56rem;
-  color: rgba(150,170,220,.3);
+  font-size: .58rem;
+  color: rgba(150,170,220,.5);
   text-align: center;
   margin-bottom: 18px;
 }
@@ -448,25 +448,25 @@ body {
 .field { margin-bottom: 12px; }
 
 .field-label {
-  font-size: .62rem;
-  color: rgba(255,255,255,.4);
+  font-size: .65rem;
+  color: rgba(255,255,255,.7);
   margin-bottom: 5px;
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.field-label .req { color: rgba(255,100,180,.4); }
+.field-label .req { color: rgba(255,100,180,.6); }
 
 .field-input {
   width: 100%;
-  height: 36px;
+  height: 38px;
   border-radius: 10px;
-  background: rgba(100,140,255,.04);
-  border: 1px solid rgba(100,140,255,.08);
-  color: var(--text-body);
+  background: rgba(100,140,255,.06);
+  border: 1px solid rgba(100,140,255,.15);
+  color: #fff;
   font-family: inherit;
-  font-size: .72rem;
+  font-size: .75rem;
   font-weight: 300;
   padding: 0 12px;
   outline: none;
@@ -474,11 +474,11 @@ body {
 }
 
 .field-input:focus {
-  border-color: rgba(79,195,247,.25);
+  border-color: rgba(79,195,247,.4);
 }
 
 .field-input::placeholder {
-  color: rgba(150,170,220,.2);
+  color: rgba(150,170,220,.35);
 }
 
 .field-textarea {
@@ -513,13 +513,13 @@ body {
   flex: 1;
   height: 34px;
   border-radius: 10px;
-  background: rgba(100,140,255,.04);
-  border: 1px solid rgba(100,140,255,.08);
+  background: rgba(100,140,255,.06);
+  border: 1px solid rgba(100,140,255,.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: .62rem;
-  color: rgba(255,255,255,.35);
+  font-size: .65rem;
+  color: rgba(255,255,255,.6);
   cursor: pointer;
   transition: all .3s;
 }
@@ -823,6 +823,12 @@ body {
   font-size: .72rem;
   color: rgba(255,255,255,.5);
   line-height: 1.9;
+  text-decoration: none;
+}
+
+.end-card .ei a {
+  color: rgba(255,255,255,.5);
+  text-decoration: none;
 }
 
 .end-card .ei strong {
@@ -890,10 +896,11 @@ body {
 
 .end-footer .ef-club {
   font-family: 'KOTRA LEAP', sans-serif;
-  font-size: .9rem;
-  color: rgba(255,255,255,.12);
+  font-size: 1.4rem;
+  color: rgba(255,255,255,.2);
   letter-spacing: .15em;
-  margin-top: 8px;
+  margin-top: 12px;
+  text-shadow: 0 0 20px rgba(100,180,255,.1);
 }
 
 /* ═══════════════════════════════════════
@@ -928,98 +935,163 @@ body {
 
 .envelope-stage {
   position: relative;
-  width: 220px;
-  height: 160px;
-  margin: 0 auto 24px;
+  width: 240px;
+  height: 220px;
+  margin: 0 auto 28px;
+  perspective: 800px;
 }
 
 /* Mini result card that flies into envelope */
 .mini-card {
   position: absolute;
-  top: -30px;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 140px;
-  padding: 14px 10px;
-  background: linear-gradient(165deg, rgba(10,14,30,.95), rgba(6,10,24,.97));
-  border: 1px solid rgba(100,140,255,.1);
-  border-radius: 6px;
+  width: 160px;
+  padding: 18px 14px;
+  background: linear-gradient(165deg, rgba(14,20,40,.97), rgba(8,12,28,.98));
+  border: 1.5px solid;
+  border-image: linear-gradient(135deg, rgba(255,100,180,.25), rgba(100,180,255,.2), rgba(120,80,255,.2)) 1;
+  border-radius: 8px;
   text-align: center;
-  z-index: 3;
+  z-index: 5;
   opacity: 1;
-  transition: all 1.2s cubic-bezier(.4,0,.2,1);
+  transition: all 1s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 4px 20px rgba(0,0,0,.4);
 }
 
-.mini-card .mc-icon { font-size: 1.2rem; margin-bottom: 4px; }
+.mini-card .mc-icon { font-size: 1.6rem; margin-bottom: 6px; }
 .mini-card .mc-name {
   font-family: 'KOTRA LEAP', sans-serif;
-  font-size: .8rem;
+  font-size: .9rem;
   color: #fff;
   letter-spacing: .05em;
 }
 .mini-card .mc-badge {
-  font-size: .45rem;
-  color: rgba(100,180,255,.4);
-  margin-top: 4px;
+  font-size: .48rem;
+  color: rgba(100,180,255,.45);
+  margin-top: 6px;
 }
 
 .mini-card.into-envelope {
-  top: 50px;
-  transform: translateX(-50%) scale(.7);
+  top: 100px;
+  transform: translateX(-50%) scale(.65);
   opacity: 0;
 }
 
-/* Envelope body */
+/* Envelope */
 .envelope {
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 180px;
-  height: 110px;
+  width: 200px;
+  height: 130px;
   z-index: 2;
 }
 
+/* Envelope back */
 .env-body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 80px;
-  background: linear-gradient(165deg, rgba(16,22,44,.95), rgba(10,14,30,.97));
-  border: 1px solid rgba(100,140,255,.1);
-  border-radius: 4px;
-  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+  height: 100px;
+  background: linear-gradient(180deg, #1a2240 0%, #141c36 100%);
+  border: 1px solid rgba(100,140,255,.15);
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.03);
 }
 
-.env-flap {
+/* Inner V shape */
+.env-body::before {
+  content: '';
   position: absolute;
-  top: 30px;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 55px;
-  background: linear-gradient(165deg, rgba(20,28,52,.95), rgba(12,18,36,.97));
-  border: 1px solid rgba(100,140,255,.08);
-  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  height: 100%;
+  background: linear-gradient(135deg, transparent 48%, rgba(100,140,255,.04) 50%, transparent 52%);
+  pointer-events: none;
+}
+
+/* Decorative seal on envelope */
+.env-body::after {
+  content: '✦';
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .7rem;
+  color: rgba(79,195,247,.3);
+  text-shadow: 0 0 8px rgba(79,195,247,.2);
+}
+
+/* Flap (triangle) */
+.env-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  z-index: 4;
   transform-origin: top center;
   transform: rotateX(0deg);
-  transition: transform 1s cubic-bezier(.4,0,.2,1) .8s;
-  z-index: 4;
+  transition: transform 0.8s cubic-bezier(.4,0,.2,1);
+}
+
+.env-flap::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 70px solid #1e2a4a;
+  filter: drop-shadow(0 -2px 4px rgba(0,0,0,.2));
+}
+
+.env-flap::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 70px solid transparent;
+  border-bottom-color: rgba(100,140,255,.08);
 }
 
 .env-flap.closed {
   transform: rotateX(180deg);
 }
 
-/* Shimmer line on envelope */
-.env-body::after {
-  content: '';
+/* Side triangles for 3D envelope look */
+.env-side-l, .env-side-r {
   position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255,100,180,.15), rgba(100,180,255,.2), rgba(120,80,255,.15));
+  bottom: 0;
+  width: 0;
+  height: 0;
+  z-index: 3;
+}
+
+.env-side-l {
+  left: 0;
+  border-left: 100px solid #161e38;
+  border-top: 60px solid transparent;
+  border-bottom: 40px solid transparent;
+  border-radius: 0 0 0 8px;
+}
+
+.env-side-r {
+  right: 0;
+  border-right: 100px solid #161e38;
+  border-top: 60px solid transparent;
+  border-bottom: 40px solid transparent;
+  border-radius: 0 0 8px 0;
 }
 
 /* Invitation card after animation */
@@ -1364,6 +1436,8 @@ body {
         </div>
         <div class="envelope">
           <div class="env-flap" id="envFlap"></div>
+          <div class="env-side-l"></div>
+          <div class="env-side-r"></div>
           <div class="env-body"></div>
         </div>
       </div>
@@ -2245,31 +2319,34 @@ function showEnvelopeScene() {
 
   showScene('scene65');
 
-  // Step 1: Card slides into envelope (after 0.5s)
+  // Step 1: Card floats down into envelope (after 0.8s)
   setTimeout(() => {
     document.getElementById('miniCard').classList.add('into-envelope');
-  }, 500);
+  }, 800);
 
-  // Step 2: Flap closes (after 1.5s)
+  // Step 2: Flap closes over the card (after 2s)
   setTimeout(() => {
     document.getElementById('envFlap').classList.add('closed');
-  }, 1500);
+  }, 2000);
 
-  // Step 3: Envelope fades, invitation message + card appears (after 2.8s)
+  // Step 3: Whole envelope gently fades out (after 3.2s)
   setTimeout(() => {
-    document.getElementById('envelopeStage').style.opacity = '0';
-    document.getElementById('envelopeStage').style.transition = 'opacity .6s ease';
-  }, 2800);
+    const stage = document.getElementById('envelopeStage');
+    stage.style.transition = 'opacity .8s ease, transform .8s ease';
+    stage.style.opacity = '0';
+    stage.style.transform = 'scale(.9)';
+  }, 3200);
 
+  // Step 4: Show invitation message + card (after 4.2s)
   setTimeout(() => {
     document.getElementById('envelopeStage').style.display = 'none';
     document.getElementById('inviteCardWrap').classList.add('visible');
-  }, 3400);
+  }, 4000);
 
-  // Step 4: Show next button (after 4.2s)
+  // Step 5: Show next button (after 5s)
   setTimeout(() => {
     document.getElementById('scene65NextBtn').classList.add('visible');
-  }, 4200);
+  }, 5000);
 
   // "가입 안내 보기" button → Scene 7
   document.getElementById('scene65NextBtn').addEventListener('click', () => {
