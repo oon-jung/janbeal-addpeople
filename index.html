@@ -61,7 +61,7 @@ html {
 }
 
 body {
-  background: var(--bg-2);
+  background: #061020;
   color: var(--text-body);
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 300;
@@ -82,7 +82,10 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  margin-top: -2px;
 }
+
+.scene:first-child { margin-top: 0; }
 
 .scene canvas {
   position: absolute;
@@ -1312,11 +1315,14 @@ function createSkyEngine(canvasId, opts) {
   }
 
   function draw(t) {
+    const topColor = (opts && opts.topColor) || '#061020';
+    const botColor = (opts && opts.botColor) || '#061020';
     const bg = ctx.createLinearGradient(0, 0, 0, h);
-    bg.addColorStop(0, '#02050e');
-    bg.addColorStop(0.35, '#081428');
-    bg.addColorStop(0.65, '#0c1e38');
-    bg.addColorStop(1, '#061020');
+    bg.addColorStop(0, topColor);
+    bg.addColorStop(0.25, '#081428');
+    bg.addColorStop(0.5, '#0c1e38');
+    bg.addColorStop(0.75, '#081428');
+    bg.addColorStop(1, botColor);
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, w, h);
 
