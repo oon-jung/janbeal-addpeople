@@ -1644,6 +1644,14 @@
               </div>
               <div class="field-error">선택해주세요</div>
             </div>
+            <div class="field" data-field="hasCar">
+              <div class="field-label"><span class="req">*</span> 자차 여부</div>
+              <div class="radio-group">
+                <div class="radio-item" data-value="있음">있음</div>
+                <div class="radio-item" data-value="없음">없음</div>
+              </div>
+              <div class="field-error">선택해주세요</div>
+            </div>
             <div class="field" data-field="depositor">
               <div class="field-label"><span class="req">*</span> 입금자 명</div>
               <input class="field-input" type="text" name="depositor" placeholder="홍길동" maxlength="10">
@@ -2461,7 +2469,8 @@
           if (!validateForm()) return;
 
           const fd = new FormData(form);
-          const canDriveEl = document.querySelector('.radio-item.selected');
+          const canDriveEl = form.querySelector('[data-field="canDrive"] .radio-item.selected');
+          const hasCarEl = form.querySelector('[data-field="hasCar"] .radio-item.selected');
 
           STATE.formData = {
             studentId: fd.get('studentId').trim(),
@@ -2469,6 +2478,7 @@
             phone: fd.get('phone').trim(),
             birthday: fd.get('birthday').trim(),
             canDrive: canDriveEl ? canDriveEl.dataset.value : '',
+            hasCar: hasCarEl ? hasCarEl.dataset.value : '',
             depositor: fd.get('depositor').trim(),
             wishActivity: fd.get('wishActivity').trim()
           };
@@ -2490,7 +2500,8 @@
           major: form.querySelector('[name="major"]').value.trim(),
           phone: form.querySelector('[name="phone"]').value.trim(),
           birthday: form.querySelector('[name="birthday"]').value.trim(),
-          canDrive: document.querySelector('.radio-item.selected'),
+          canDrive: form.querySelector('[data-field="canDrive"] .radio-item.selected'),
+          hasCar: form.querySelector('[data-field="hasCar"] .radio-item.selected'),
           depositor: form.querySelector('[name="depositor"]').value.trim()
         };
 
@@ -2508,6 +2519,9 @@
         }
         if (!data.canDrive) {
           form.querySelector('[data-field="canDrive"]').classList.add('has-error'); valid = false;
+        }
+        if (!data.hasCar) {
+          form.querySelector('[data-field="hasCar"]').classList.add('has-error'); valid = false;
         }
         if (!data.depositor || data.depositor.length < 2) {
           form.querySelector('[data-field="depositor"]').classList.add('has-error'); valid = false;
@@ -2733,8 +2747,9 @@
           studentId: STATE.formData.studentId,
           major: STATE.formData.major,
           phone: STATE.formData.phone,
-          birthday: STATE.formData.birthday,
+          birthday: "'" + STATE.formData.birthday,
           canDrive: STATE.formData.canDrive,
+          hasCar: STATE.formData.hasCar,
           depositor: STATE.formData.depositor,
           wishActivity: STATE.formData.wishActivity,
           starType: STAR_TYPES[STATE.resultType].name,
