@@ -1902,7 +1902,7 @@
         }
       ];
 
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjUqokSt9v4A2Oh_5W1-mlRf3RMQit_N_5LGIzZ__uUPd6IKQuDwlHAvhEh_qjSdnG/exec';
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZ3l9teggUF8XejCkCiDcg0wKHetcq9NO_0J8dMgLT2-hn3fCX7psuGCiV8ZdFQjQ9/exec';
 
       /* ─── GLOBAL STATE ─── */
       const STATE = {
@@ -2757,16 +2757,20 @@
           quizAnswers: STATE.quizAnswers.map(k => STAR_TYPES[k].name).join(', ')
         };
 
-        try {
-          fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify(payload)
-          });
-        } catch (err) {
+        console.log('[STARFALL] Submitting payload:', JSON.stringify(payload));
+
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload)
+        })
+        .then(function(res) {
+          console.log('[STARFALL] Fetch completed. Status:', res.status, 'Type:', res.type);
+        })
+        .catch(function(err) {
           console.error('[STARFALL] Submit error:', err);
-        }
+        });
       }
 
       /* ═══════════════════════════════════════
