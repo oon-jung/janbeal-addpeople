@@ -2381,8 +2381,8 @@ function submitToSheets() {
     depositor:    STATE.formData.depositor,
     wishActivity: STATE.formData.wishActivity,
     starType:     STAR_TYPES[STATE.resultType].name,
-    typeScores:   Object.entries(STATE.quizScores).map(([k, v]) => k + ':' + v).join(','),
-    quizAnswers:  STATE.quizAnswers.join(',')
+    typeScores:   Object.entries(STATE.quizScores).map(([k, v]) => STAR_TYPES[k].name + ':' + v).join(', '),
+    quizAnswers:  STATE.quizAnswers.map(k => STAR_TYPES[k].name).join(', ')
   };
 
   try {
