@@ -740,57 +740,319 @@ body {
 }
 
 /* ═══════════════════════════════════════
-   SCENE 6: RESULT
+   SCENE 6: RESULT + ENVELOPE + INVITATION (3-phase)
    ═══════════════════════════════════════ */
-.result-icon {
-  font-size: 2.8rem;
-  animation: floatY 3s ease infinite;
-  margin-bottom: 12px;
+#scene6 .scene-content {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* ── PHASE 1: RESULT ── */
+.ph1 {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  width: calc(100% - 48px);
+  max-width: 320px;
+  z-index: 15;
+  transition: opacity .5s, transform .6s;
+}
+.ph1.out {
+  opacity: 0;
+  transform: translate(-50%,-50%) scale(.6) translateY(60px);
+}
+.rp-icon {
+  font-size: 2.6rem;
+  animation: floatY 3s ease infinite;
+  margin-bottom: 10px;
+}
 @keyframes floatY {
-  0%, 100% { transform: translateY(0); }
+  0%,100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
 }
-
-.result-name {
+.rp-name {
   font-family: 'KOTRA LEAP', sans-serif;
-  font-size: clamp(1.6rem, 6vw, 2.2rem);
+  font-size: clamp(1.5rem, 6vw, 2rem);
   color: #fff;
   text-shadow: 0 0 30px rgba(100,180,255,.25);
   letter-spacing: .1em;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
-
-.result-sub {
-  font-size: .65rem;
+.rp-sub {
+  font-size: .62rem;
   color: rgba(255,100,180,.35);
-  letter-spacing: .12em;
-  margin-bottom: 22px;
+  letter-spacing: .1em;
+  margin-bottom: 18px;
 }
-
-.result-desc {
-  font-size: .8rem;
+.rp-desc {
+  font-size: .78rem;
   color: rgba(255,255,255,.6);
-  line-height: 2.1;
+  line-height: 2;
   text-align: center;
   word-break: keep-all;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
   white-space: pre-line;
 }
-
-.result-badge {
+.rp-badge {
   display: inline-block;
-  background: linear-gradient(135deg,
-    rgba(79,195,247,.08),
-    rgba(124,77,255,.08),
-    rgba(255,64,129,.08));
+  background: linear-gradient(135deg, rgba(79,195,247,.08), rgba(124,77,255,.08), rgba(255,64,129,.08));
   border: 1px solid rgba(100,180,255,.12);
   border-radius: 20px;
-  padding: 9px 20px;
-  font-size: .67rem;
+  padding: 8px 18px;
+  font-size: .64rem;
   color: rgba(100,180,255,.55);
+  letter-spacing: .06em;
+}
+.rp-btn {
+  margin-top: 24px;
+  font-size: .68rem;
+  font-weight: 300;
+  letter-spacing: .06em;
+  color: rgba(255,255,255,.5);
+  border: 1px solid rgba(100,180,255,.15);
+  padding: 11px 26px;
+  border-radius: 20px;
+  background: rgba(100,180,255,.04);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .3s, color .3s;
+}
+.rp-btn:active {
+  background: rgba(100,180,255,.12);
+  color: #fff;
+}
+
+/* ── PHASE 2: ENVELOPE ── */
+.ph2 {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 12;
+  transition: opacity .5s;
+}
+.ph2.on { opacity: 1; pointer-events: auto; }
+.env-wrap {
+  position: relative;
+  width: 260px;
+  height: 320px;
+}
+/* Card (z:5, slides down behind front pocket) */
+.env-card {
+  position: absolute;
+  left: 50%; top: 10px;
+  transform: translateX(-50%);
+  width: 200px;
+  z-index: 5;
+}
+.env-card-inner {
+  background: linear-gradient(165deg, rgba(14,18,38,.97), rgba(8,12,28,.98));
+  border-radius: 6px;
+  padding: 20px 15px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 6px 28px rgba(0,0,0,.4), 0 0 20px rgba(120,80,255,.06);
+}
+.env-card-inner::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, rgba(255,100,180,.25), rgba(100,180,255,.18), rgba(120,80,255,.22), rgba(255,200,100,.15));
+  background-size: 300% 300%;
+  animation: shimmer 5s ease infinite;
+  z-index: -1;
+}
+.ci-en {
+  font-family: 'Libre Baskerville', serif;
+  font-size: .36rem;
+  letter-spacing: .25em;
+  color: rgba(255,180,140,.3);
+  margin-bottom: 8px;
+}
+.ci-icon { font-size: 1.5rem; margin-bottom: 5px; }
+.ci-name {
+  font-family: 'KOTRA LEAP', sans-serif;
+  font-size: .95rem;
+  color: #fff;
   letter-spacing: .08em;
+}
+.ci-line {
+  width: 18px; height: 1px;
+  background: linear-gradient(90deg, rgba(255,100,180,.15), rgba(100,180,255,.2), rgba(120,80,255,.15));
+  margin: 7px auto;
+}
+.ci-sub {
+  font-size: .44rem;
+  color: rgba(100,180,255,.3);
+  letter-spacing: .04em;
+}
+.ci-club {
+  font-family: 'Libre Baskerville', serif;
+  font-size: .38rem;
+  font-style: italic;
+  color: rgba(100,180,255,.18);
+  margin-top: 3px;
+}
+@keyframes cardIn {
+  0%   { top: 10px;  transform: translateX(-50%) scale(1.15) rotate(-1.5deg); }
+  40%  { top: 70px;  transform: translateX(-50%) scale(1) rotate(1deg); }
+  70%  { top: 120px; transform: translateX(-50%) scale(.93) rotate(-.3deg); }
+  100% { top: 160px; transform: translateX(-50%) scale(.85) rotate(0deg); }
+}
+.env-card.fly { animation: cardIn 1.3s cubic-bezier(.4,0,.15,1) forwards; }
+
+/* Envelope pocket (z:10, covers card as it slides) */
+.pocket {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 260px; height: 180px;
+  z-index: 10;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.3);
+}
+.pocket svg { display: block; width: 100%; height: 100%; }
+
+@keyframes bounce {
+  0%   { transform: translateY(0); }
+  20%  { transform: translateY(5px) scaleY(1.01); }
+  50%  { transform: translateY(-4px); }
+  70%  { transform: translateY(2px); }
+  100% { transform: translateY(0); }
+}
+@keyframes floatAway {
+  0%   { opacity: 1; transform: translate(-50%,-50%) scale(1) rotate(0); }
+  30%  { opacity: 1; transform: translate(-50%,-56%) scale(1.03) rotate(-2deg); }
+  100% { opacity: 0; transform: translate(-50%,-72%) scale(.78) rotate(4deg); }
+}
+.ph2.away { animation: floatAway 1.3s ease-in forwards; }
+
+/* ── PHASE 3: INVITATION ── */
+.ph3 {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%) translateY(30px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .8s, transform .8s;
+  text-align: center;
+  width: calc(100% - 48px);
+  max-width: 300px;
+  z-index: 15;
+}
+.ph3.on {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%,-50%) translateY(0);
+}
+.im {
+  font-size: .72rem;
+  color: rgba(255,255,255,.45);
+  line-height: 2;
+  margin-bottom: 22px;
+  word-break: keep-all;
+}
+.im .em { color: rgba(255,255,255,.75); font-weight: 400; }
+.im .hl {
+  display: inline-block;
+  background: rgba(255,64,129,.08);
+  color: rgba(255,100,180,.6);
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-weight: 400;
+  margin-top: 4px;
+}
+.ip {
+  padding: 1.5px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(255,100,180,.3), rgba(100,180,255,.2), rgba(120,80,255,.25), rgba(255,200,100,.2));
+  background-size: 300% 300%;
+  animation: shimmer 5s ease infinite;
+  box-shadow: 0 0 20px rgba(120,80,255,.1);
+}
+.ip-in {
+  background: linear-gradient(165deg, rgba(10,14,30,.95), rgba(6,10,24,.97));
+  border-radius: 7px;
+  padding: 22px 18px;
+  text-align: center;
+}
+.ip-en {
+  font-family: 'Libre Baskerville', serif;
+  font-size: .4rem;
+  letter-spacing: .28em;
+  color: rgba(255,180,140,.3);
+  margin-bottom: 10px;
+}
+.ip-ic { font-size: 1.7rem; margin-bottom: 6px; }
+.ip-nm {
+  font-family: 'KOTRA LEAP', sans-serif;
+  font-size: 1.05rem;
+  color: #fff;
+  letter-spacing: .08em;
+  margin-bottom: 2px;
+}
+.ip-sb {
+  font-size: .5rem;
+  color: rgba(100,180,255,.32);
+  letter-spacing: .05em;
+}
+.ip-ln {
+  display: block;
+  width: 22px; height: 1px;
+  background: linear-gradient(90deg, rgba(255,100,180,.18), rgba(100,180,255,.22), rgba(120,80,255,.18));
+  margin: 9px auto;
+}
+.ip-cl {
+  font-family: 'Libre Baskerville', serif;
+  font-size: .44rem;
+  font-style: italic;
+  color: rgba(100,180,255,.2);
+}
+.cta-btn {
+  margin-top: 22px;
+  width: 100%;
+  height: 44px;
+  border-radius: 22px;
+  border: none;
+  background: linear-gradient(135deg, #4fc3f7, #7c4dff, #ff4081);
+  font-size: .72rem;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 16px rgba(120,80,255,.2);
+  opacity: 0;
+  transition: opacity .6s, transform .2s;
+}
+.cta-btn.on { opacity: 1; }
+.cta-btn:active { transform: scale(.97); }
+
+/* Particle effects */
+.pt {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 30;
+}
+@keyframes pb {
+  0%   { opacity: 1; transform: translate(0,0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
+}
+.ps {
+  position: absolute;
+  pointer-events: none;
+  z-index: 30;
+  font-size: var(--ps, 8px);
+}
+@keyframes sb {
+  0%   { opacity: 1; transform: translate(0,0) scale(1) rotate(0); }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0) rotate(var(--rot)); }
 }
 
 /* ═══════════════════════════════════════
@@ -902,317 +1164,6 @@ body {
   margin-top: 12px;
   text-shadow: 0 0 20px rgba(100,180,255,.1);
 }
-
-/* ═══════════════════════════════════════
-   SCENE 6: RESULT — next button
-   ═══════════════════════════════════════ */
-.result-next-btn {
-  margin-top: 28px;
-  font-size: .7rem;
-  font-weight: 300;
-  letter-spacing: .08em;
-  color: rgba(255,255,255,.5);
-  border: 1px solid rgba(100,180,255,.15);
-  padding: 12px 28px;
-  border-radius: 20px;
-  background: rgba(100,180,255,.04);
-  cursor: pointer;
-  font-family: inherit;
-  transition: background .3s, color .3s;
-}
-.result-next-btn:active {
-  background: rgba(100,180,255,.12);
-  color: rgba(255,255,255,.8);
-}
-
-/* ═══════════════════════════════════════
-   SCENE 6.5: ENVELOPE ANIMATION
-   ═══════════════════════════════════════ */
-#scene65 .scene-content {
-  justify-content: center;
-  gap: 0;
-}
-
-.envelope-stage {
-  position: relative;
-  width: 240px;
-  height: 220px;
-  margin: 0 auto 28px;
-  perspective: 800px;
-}
-
-/* Mini result card that flies into envelope */
-.mini-card {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 160px;
-  padding: 18px 14px;
-  background: linear-gradient(165deg, rgba(14,20,40,.97), rgba(8,12,28,.98));
-  border: 1.5px solid;
-  border-image: linear-gradient(135deg, rgba(255,100,180,.25), rgba(100,180,255,.2), rgba(120,80,255,.2)) 1;
-  border-radius: 8px;
-  text-align: center;
-  z-index: 5;
-  opacity: 1;
-  transition: all 1s cubic-bezier(.4,0,.2,1);
-  box-shadow: 0 4px 20px rgba(0,0,0,.4);
-}
-
-.mini-card .mc-icon { font-size: 1.6rem; margin-bottom: 6px; }
-.mini-card .mc-name {
-  font-family: 'KOTRA LEAP', sans-serif;
-  font-size: .9rem;
-  color: #fff;
-  letter-spacing: .05em;
-}
-.mini-card .mc-badge {
-  font-size: .48rem;
-  color: rgba(100,180,255,.45);
-  margin-top: 6px;
-}
-
-.mini-card.into-envelope {
-  top: 100px;
-  transform: translateX(-50%) scale(.65);
-  opacity: 0;
-}
-
-/* Envelope */
-.envelope {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 130px;
-  z-index: 2;
-}
-
-/* Envelope back */
-.env-body {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 100px;
-  background: linear-gradient(180deg, #1a2240 0%, #141c36 100%);
-  border: 1px solid rgba(100,140,255,.15);
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0 8px 30px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.03);
-}
-
-/* Inner V shape */
-.env-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, transparent 48%, rgba(100,140,255,.04) 50%, transparent 52%);
-  pointer-events: none;
-}
-
-/* Decorative seal on envelope */
-.env-body::after {
-  content: '✦';
-  position: absolute;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: .7rem;
-  color: rgba(79,195,247,.3);
-  text-shadow: 0 0 8px rgba(79,195,247,.2);
-}
-
-/* Flap (triangle) */
-.env-flap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
-  z-index: 4;
-  transform-origin: top center;
-  transform: rotateX(0deg);
-  transition: transform 0.8s cubic-bezier(.4,0,.2,1);
-}
-
-.env-flap::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 100px solid transparent;
-  border-right: 100px solid transparent;
-  border-bottom: 70px solid #1e2a4a;
-  filter: drop-shadow(0 -2px 4px rgba(0,0,0,.2));
-}
-
-.env-flap::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 100px solid transparent;
-  border-right: 100px solid transparent;
-  border-bottom: 70px solid transparent;
-  border-bottom-color: rgba(100,140,255,.08);
-}
-
-.env-flap.closed {
-  transform: rotateX(180deg);
-}
-
-/* Side triangles for 3D envelope look */
-.env-side-l, .env-side-r {
-  position: absolute;
-  bottom: 0;
-  width: 0;
-  height: 0;
-  z-index: 3;
-}
-
-.env-side-l {
-  left: 0;
-  border-left: 100px solid #161e38;
-  border-top: 60px solid transparent;
-  border-bottom: 40px solid transparent;
-  border-radius: 0 0 0 8px;
-}
-
-.env-side-r {
-  right: 0;
-  border-right: 100px solid #161e38;
-  border-top: 60px solid transparent;
-  border-bottom: 40px solid transparent;
-  border-radius: 0 0 8px 0;
-}
-
-/* Invitation card after animation */
-.invite-card-wrap {
-  width: 85%;
-  max-width: 280px;
-  margin: 0 auto;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .8s ease, transform .8s ease;
-}
-
-.invite-card-wrap.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.invite-msg {
-  font-size: .72rem;
-  color: var(--text-sub);
-  text-align: center;
-  line-height: 2;
-  margin-bottom: 20px;
-  word-break: keep-all;
-}
-
-.invite-msg .em {
-  color: rgba(255,255,255,.75);
-  font-weight: 400;
-}
-
-.invite-msg .date-highlight {
-  display: inline-block;
-  background: rgba(255,64,129,.08);
-  color: rgba(255,100,180,.6);
-  padding: 2px 10px;
-  border-radius: 4px;
-  font-weight: 400;
-  margin-top: 4px;
-}
-
-/* Mini invitation card preview */
-.invite-preview {
-  padding: 1.5px;
-  border-radius: 6px;
-  background: linear-gradient(135deg,
-    rgba(255,100,180,.3),
-    rgba(100,180,255,.2),
-    rgba(120,80,255,.25),
-    rgba(255,200,100,.2));
-  background-size: 300% 300%;
-  animation: shimmer 5s ease infinite;
-  box-shadow: 0 0 20px rgba(120,80,255,.1), 0 0 40px rgba(255,100,180,.05);
-}
-
-.invite-preview-inner {
-  background: linear-gradient(165deg, rgba(10,14,30,.95), rgba(6,10,24,.97));
-  border-radius: 5px;
-  padding: 22px 18px;
-  text-align: center;
-}
-
-.invite-preview-inner .ip-en {
-  font-family: 'Libre Baskerville', serif;
-  font-size: .42rem;
-  letter-spacing: .3em;
-  color: rgba(255,180,140,.35);
-  margin-bottom: 10px;
-}
-
-.invite-preview-inner .ip-type {
-  font-family: 'KOTRA LEAP', sans-serif;
-  font-size: 1rem;
-  color: #fff;
-  letter-spacing: .08em;
-  margin-bottom: 4px;
-}
-
-.invite-preview-inner .ip-icon { font-size: 1.6rem; margin-bottom: 8px; }
-
-.invite-preview-inner .ip-sub {
-  font-size: .52rem;
-  color: rgba(100,180,255,.35);
-  letter-spacing: .06em;
-}
-
-.invite-preview-inner .ip-line {
-  display: block;
-  width: 24px;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255,100,180,.2), rgba(100,180,255,.25), rgba(120,80,255,.2));
-  margin: 10px auto;
-}
-
-.invite-preview-inner .ip-club {
-  font-family: 'Libre Baskerville', serif;
-  font-size: .5rem;
-  font-style: italic;
-  color: rgba(100,180,255,.25);
-}
-
-.scene65-next-btn {
-  margin-top: 24px;
-  width: 100%;
-  max-width: 280px;
-  height: 44px;
-  border-radius: 22px;
-  border: none;
-  background: linear-gradient(135deg, var(--kurz-cyan), var(--kurz-purple), var(--kurz-pink));
-  font-size: .72rem;
-  font-weight: 500;
-  color: #fff;
-  cursor: pointer;
-  font-family: inherit;
-  box-shadow: 0 4px 16px rgba(120,80,255,.2);
-  opacity: 0;
-  transition: opacity .6s ease, transform .2s;
-}
-
-.scene65-next-btn.visible { opacity: 1; }
-.scene65-next-btn:active { transform: scale(.97); }
 
 /* Toast */
 .toast {
@@ -1411,60 +1362,78 @@ body {
     </div>
   </div>
 
-  <!-- SCENE 6: RESULT -->
+  <!-- SCENE 6: RESULT + ENVELOPE + INVITATION (3-phase) -->
   <div id="scene6" class="scene scene-hidden">
     <canvas id="cvS6"></canvas>
     <div class="scene-content">
-      <div class="result-icon" id="resultIcon"></div>
-      <div class="result-name" id="resultName"></div>
-      <div class="result-sub" id="resultSub"></div>
-      <div class="result-desc" id="resultDesc"></div>
-      <div class="result-badge" id="resultBadge"></div>
-      <button class="result-next-btn" id="resultNextBtn">나의 초대장 받기 ✦</button>
-    </div>
-  </div>
 
-  <!-- SCENE 6.5: ENVELOPE + INVITATION -->
-  <div id="scene65" class="scene scene-hidden">
-    <canvas id="cvS65"></canvas>
-    <div class="scene-content">
-      <div class="envelope-stage" id="envelopeStage">
-        <div class="mini-card" id="miniCard">
-          <div class="mc-icon" id="mcIcon"></div>
-          <div class="mc-name" id="mcName"></div>
-          <div class="mc-badge" id="mcBadge"></div>
-        </div>
-        <div class="envelope">
-          <div class="env-flap" id="envFlap"></div>
-          <div class="env-side-l"></div>
-          <div class="env-side-r"></div>
-          <div class="env-body"></div>
-        </div>
+      <!-- Phase 1: Result -->
+      <div class="ph1" id="ph1">
+        <div class="rp-icon" id="rpIcon"></div>
+        <div class="rp-name" id="rpName"></div>
+        <div class="rp-sub" id="rpSub"></div>
+        <div class="rp-desc" id="rpDesc"></div>
+        <div class="rp-badge" id="rpBadge"></div>
+        <button class="rp-btn" id="rpBtn">나의 초대장 받기 ✦</button>
       </div>
 
-      <div class="invite-card-wrap" id="inviteCardWrap">
-        <div class="invite-msg">
-          당신의 별 유형이 담긴<br>
-          <span class="em">초대장</span>이 준비되었습니다<br><br>
-          <span class="date-highlight">📅 3월 11일 동아리 축제</span><br><br>
-          잔별 부스에서<br>
-          <span class="em">부원 초대장</span>을 받아가세요
-        </div>
-
-        <div class="invite-preview">
-          <div class="invite-preview-inner">
-            <div class="ip-en">JANBEAL INVITATION</div>
-            <div class="ip-icon" id="ipIcon"></div>
-            <div class="ip-type" id="ipType"></div>
-            <span class="ip-line"></span>
-            <div class="ip-sub" id="ipSub"></div>
-            <span class="ip-line"></span>
-            <div class="ip-club">잔별 26-1</div>
+      <!-- Phase 2: Envelope animation -->
+      <div class="ph2" id="ph2">
+        <div class="env-wrap" id="envWrap">
+          <div class="env-card" id="envCard">
+            <div class="env-card-inner">
+              <div class="ci-en">JANBEAL INVITATION</div>
+              <div class="ci-icon" id="ciIcon"></div>
+              <div class="ci-name" id="ciName"></div>
+              <div class="ci-line"></div>
+              <div class="ci-sub" id="ciSub"></div>
+              <div class="ci-line"></div>
+              <div class="ci-club">잔별 26-1</div>
+            </div>
+          </div>
+          <div class="pocket">
+            <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="envBg" x1="130" y1="0" x2="130" y2="180"><stop offset="0" stop-color="#9B8ED8"/><stop offset="1" stop-color="#8A7DC6"/></linearGradient>
+                <linearGradient id="envLg" x1="0" y1="90" x2="135" y2="90"><stop offset="0" stop-color="#A89ADE"/><stop offset="1" stop-color="#9B8ED2"/></linearGradient>
+                <linearGradient id="envRg" x1="260" y1="90" x2="125" y2="90"><stop offset="0" stop-color="#A496DC"/><stop offset="1" stop-color="#9890D0"/></linearGradient>
+                <linearGradient id="envBtm" x1="130" y1="180" x2="130" y2="60"><stop offset="0" stop-color="#8578C0"/><stop offset=".6" stop-color="#9184CA"/></linearGradient>
+              </defs>
+              <rect width="260" height="180" rx="10" fill="url(#envBg)"/>
+              <path d="M0 0 L130 92 L0 180Z" fill="url(#envLg)"/>
+              <path d="M260 0 L130 92 L260 180Z" fill="url(#envRg)"/>
+              <path d="M0 180 L130 72 L260 180Z" fill="url(#envBtm)"/>
+              <path d="M1 1 L129 91" stroke="rgba(255,255,255,.08)" stroke-width=".5" fill="none"/>
+              <path d="M259 1 L131 91" stroke="rgba(255,255,255,.08)" stroke-width=".5" fill="none"/>
+              <path d="M1 179 L129 74" stroke="rgba(255,255,255,.05)" stroke-width=".5" fill="none"/>
+              <path d="M259 179 L131 74" stroke="rgba(255,255,255,.05)" stroke-width=".5" fill="none"/>
+              <rect x=".5" y=".5" width="259" height="179" rx="10" fill="none" stroke="rgba(255,255,255,.12)"/>
+            </svg>
           </div>
         </div>
       </div>
 
-      <button class="scene65-next-btn" id="scene65NextBtn">가입 안내 보기</button>
+      <!-- Phase 3: Invitation -->
+      <div class="ph3" id="ph3">
+        <div class="im">
+          당신의 별 유형이 담긴<br>
+          <span class="em">초대장</span>이 준비되었습니다<br><br>
+          <span class="hl">📅 3월 11일 동아리 축제</span><br><br>
+          잔별 부스에서<br>
+          <span class="em">부원 초대장</span>을 받아가세요
+        </div>
+        <div class="ip"><div class="ip-in">
+          <div class="ip-en">JANBEAL INVITATION</div>
+          <div class="ip-ic" id="ipIc"></div>
+          <div class="ip-nm" id="ipNm"></div>
+          <span class="ip-ln"></span>
+          <div class="ip-sb" id="ipSb"></div>
+          <span class="ip-ln"></span>
+          <div class="ip-cl">잔별 26-1</div>
+        </div></div>
+        <button class="cta-btn" id="ctaBtn">가입 안내 보기</button>
+      </div>
+
     </div>
   </div>
 
@@ -2083,7 +2052,7 @@ function showScene(id) {
   // Start canvas for new scene if needed
   const canvasMap = {
     scene4: 'cvS4', scene5: 'cvS5', scene55: 'cvS55',
-    scene6: 'cvS6', scene65: 'cvS65', scene7: 'cvS7'
+    scene6: 'cvS6', scene7: 'cvS7'
   };
   if (canvasMap[id] && !skyEngines[id]) {
     skyEngines[id] = createSkyEngine(canvasMap[id], { count: isMobile() ? 100 : 180 });
@@ -2283,73 +2252,106 @@ function finishQuiz() {
 }
 
 /* ═══════════════════════════════════════
-   RESULT RENDERER
+   RESULT RENDERER + ENVELOPE ANIMATION (3-phase)
    ═══════════════════════════════════════ */
+const BURST_COLORS = ['#4fc3f7','#7c4dff','#ff4081','#ffea00','#64ffda','#b388ff','#ff9100','#ffffff'];
+
+function burst(el, n1, n2) {
+  const r = el.getBoundingClientRect();
+  const cx = r.left + r.width / 2;
+  const cy = r.top + r.height / 2;
+  for (let i = 0; i < n1; i++) {
+    const p = document.createElement('div');
+    p.className = 'pt';
+    const s = Math.random() * 6 + 2;
+    const a = Math.random() * Math.PI * 2;
+    const d = Math.random() * 100 + 50;
+    p.style.cssText = 'left:' + (cx - s/2) + 'px;top:' + (cy - s/2) + 'px;width:' + s + 'px;height:' + s + 'px;background:' + BURST_COLORS[~~(Math.random()*BURST_COLORS.length)] + ';--tx:' + Math.cos(a)*d + 'px;--ty:' + Math.sin(a)*d + 'px;animation:pb ' + (.5+Math.random()*.5) + 's ease-out forwards;box-shadow:0 0 ' + s*2 + 'px currentColor';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1200);
+  }
+  for (let i = 0; i < n2; i++) {
+    const p = document.createElement('div');
+    p.className = 'ps';
+    const sz = Math.random() * 10 + 6;
+    const a = Math.random() * Math.PI * 2;
+    const d = Math.random() * 120 + 60;
+    const col = BURST_COLORS[~~(Math.random()*BURST_COLORS.length)];
+    p.textContent = '\u2726';
+    p.style.cssText = 'left:' + cx + 'px;top:' + cy + 'px;--ps:' + sz + 'px;color:' + col + ';--tx:' + Math.cos(a)*d + 'px;--ty:' + Math.sin(a)*d + 'px;--rot:' + Math.random()*360 + 'deg;animation:sb ' + (.6+Math.random()*.6) + 's ease-out forwards;text-shadow:0 0 ' + sz + 'px ' + col;
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1400);
+  }
+}
+
 function showResult() {
   const type = STAR_TYPES[STATE.resultType];
-  document.getElementById('resultIcon').textContent = type.icon;
-  document.getElementById('resultName').textContent = type.name;
-  document.getElementById('resultSub').textContent = '~ ' + type.subtitle + ' ~';
-  document.getElementById('resultDesc').textContent = type.description;
-  document.getElementById('resultBadge').textContent = type.badge;
+
+  // Phase 1: result display
+  document.getElementById('rpIcon').textContent = type.icon;
+  document.getElementById('rpName').textContent = type.name;
+  document.getElementById('rpSub').textContent = '~ ' + type.subtitle + ' ~';
+  document.getElementById('rpDesc').textContent = type.description;
+  document.getElementById('rpBadge').textContent = type.badge;
+
+  // Envelope card content
+  document.getElementById('ciIcon').textContent = type.icon;
+  document.getElementById('ciName').textContent = type.name;
+  document.getElementById('ciSub').textContent = type.subtitle;
+
+  // Phase 3: invitation preview content
+  document.getElementById('ipIc').textContent = type.icon;
+  document.getElementById('ipNm').textContent = type.name;
+  document.getElementById('ipSb').textContent = type.subtitle;
 
   showScene('scene6');
 
-  // "나의 초대장 받기" button → Scene 6.5
-  document.getElementById('resultNextBtn').addEventListener('click', () => {
-    showEnvelopeScene();
+  // "나의 초대장 받기" button → envelope animation
+  document.getElementById('rpBtn').addEventListener('click', function handler() {
+    document.getElementById('rpBtn').removeEventListener('click', handler);
+    startEnvelopeAnimation();
   });
 }
 
-/* ═══════════════════════════════════════
-   SCENE 6.5: ENVELOPE ANIMATION
-   ═══════════════════════════════════════ */
-function showEnvelopeScene() {
-  const type = STAR_TYPES[STATE.resultType];
+function startEnvelopeAnimation() {
+  const p1 = document.getElementById('ph1');
+  const p2 = document.getElementById('ph2');
+  const cd = document.getElementById('envCard');
+  const ew = document.getElementById('envWrap');
+  const p3 = document.getElementById('ph3');
+  const ct = document.getElementById('ctaBtn');
 
-  // Set mini card content
-  document.getElementById('mcIcon').textContent = type.icon;
-  document.getElementById('mcName').textContent = type.name;
-  document.getElementById('mcBadge').textContent = type.badge;
+  // Phase 1 fades out
+  p1.classList.add('out');
 
-  // Set invitation preview content
-  document.getElementById('ipIcon').textContent = type.icon;
-  document.getElementById('ipType').textContent = type.name;
-  document.getElementById('ipSub').textContent = type.subtitle;
+  // Phase 2 envelope appears
+  setTimeout(() => p2.classList.add('on'), 600);
 
-  showScene('scene65');
+  // Card flies into envelope
+  setTimeout(() => cd.classList.add('fly'), 1500);
 
-  // Step 1: Card floats down into envelope (after 0.8s)
+  // Bounce + particle burst
   setTimeout(() => {
-    document.getElementById('miniCard').classList.add('into-envelope');
-  }, 800);
+    ew.style.animation = 'bounce .45s ease';
+    burst(ew, 15, 8);
+  }, 2600);
 
-  // Step 2: Flap closes over the card (after 2s)
+  // Envelope floats away
+  setTimeout(() => p2.classList.add('away'), 4000);
+
+  // Phase 3 invitation appears
   setTimeout(() => {
-    document.getElementById('envFlap').classList.add('closed');
-  }, 2000);
+    p2.style.display = 'none';
+    p1.style.display = 'none';
+    p3.classList.add('on');
+  }, 5200);
 
-  // Step 3: Whole envelope gently fades out (after 3.2s)
-  setTimeout(() => {
-    const stage = document.getElementById('envelopeStage');
-    stage.style.transition = 'opacity .8s ease, transform .8s ease';
-    stage.style.opacity = '0';
-    stage.style.transform = 'scale(.9)';
-  }, 3200);
+  // CTA button appears
+  setTimeout(() => ct.classList.add('on'), 6000);
 
-  // Step 4: Show invitation message + card (after 4.2s)
-  setTimeout(() => {
-    document.getElementById('envelopeStage').style.display = 'none';
-    document.getElementById('inviteCardWrap').classList.add('visible');
-  }, 4000);
-
-  // Step 5: Show next button (after 5s)
-  setTimeout(() => {
-    document.getElementById('scene65NextBtn').classList.add('visible');
-  }, 5000);
-
-  // "가입 안내 보기" button → Scene 7
-  document.getElementById('scene65NextBtn').addEventListener('click', () => {
+  // "가입 안내 보기" → Scene 7
+  ct.addEventListener('click', function handler() {
+    ct.removeEventListener('click', handler);
     showScene('scene7');
     if (!skyEngines.scene7) {
       skyEngines.scene7 = createSkyEngine('cvS7', { count: isMobile() ? 80 : 150 });
