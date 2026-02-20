@@ -1636,19 +1636,13 @@
                 maxlength="6">
               <div class="field-error">생년월일 6자리를 입력해주세요</div>
             </div>
-            <div class="field" data-field="canDrive">
-              <div class="field-label"><span class="req">*</span> 운전 가능 여부</div>
+            <div class="field" data-field="carAvailability">
+              <div class="field-label"><span class="req">*</span> 차량 이용 가능 여부</div>
               <div class="radio-group">
-                <div class="radio-item" data-value="가능">가능</div>
+                <div class="radio-item" data-value="자차 가능">자차 가능</div>
+                <div class="radio-item" data-value="렌트 가능">렌트 가능</div>
+                <div class="radio-item" data-value="모두 가능">모두 가능</div>
                 <div class="radio-item" data-value="불가능">불가능</div>
-              </div>
-              <div class="field-error">선택해주세요</div>
-            </div>
-            <div class="field" data-field="hasCar">
-              <div class="field-label"><span class="req">*</span> 자차 여부</div>
-              <div class="radio-group">
-                <div class="radio-item" data-value="있음">있음</div>
-                <div class="radio-item" data-value="없음">없음</div>
               </div>
               <div class="field-error">선택해주세요</div>
             </div>
@@ -1902,7 +1896,7 @@
         }
       ];
 
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZ3l9teggUF8XejCkCiDcg0wKHetcq9NO_0J8dMgLT2-hn3fCX7psuGCiV8ZdFQjQ9/exec';
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0LsTkAym3wDED-F88cj7e10reJ24XXGGhTU5A0x0yFsGoVFJGcEQ8EitUU7Ao8c-7/exec';
 
       /* ─── GLOBAL STATE ─── */
       const STATE = {
@@ -2469,16 +2463,14 @@
           if (!validateForm()) return;
 
           const fd = new FormData(form);
-          const canDriveEl = form.querySelector('[data-field="canDrive"] .radio-item.selected');
-          const hasCarEl = form.querySelector('[data-field="hasCar"] .radio-item.selected');
+          const carAvailEl = form.querySelector('[data-field="carAvailability"] .radio-item.selected');
 
           STATE.formData = {
             studentId: fd.get('studentId').trim(),
             major: fd.get('major').trim(),
             phone: fd.get('phone').trim(),
             birthday: fd.get('birthday').trim(),
-            canDrive: canDriveEl ? canDriveEl.dataset.value : '',
-            hasCar: hasCarEl ? hasCarEl.dataset.value : '',
+            carAvailability: carAvailEl ? carAvailEl.dataset.value : '',
             depositor: fd.get('depositor').trim(),
             wishActivity: fd.get('wishActivity').trim()
           };
@@ -2500,8 +2492,7 @@
           major: form.querySelector('[name="major"]').value.trim(),
           phone: form.querySelector('[name="phone"]').value.trim(),
           birthday: form.querySelector('[name="birthday"]').value.trim(),
-          canDrive: form.querySelector('[data-field="canDrive"] .radio-item.selected'),
-          hasCar: form.querySelector('[data-field="hasCar"] .radio-item.selected'),
+          carAvailability: form.querySelector('[data-field="carAvailability"] .radio-item.selected'),
           depositor: form.querySelector('[name="depositor"]').value.trim()
         };
 
@@ -2517,11 +2508,8 @@
         if (!/^\d{6}$/.test(data.birthday)) {
           form.querySelector('[data-field="birthday"]').classList.add('has-error'); valid = false;
         }
-        if (!data.canDrive) {
-          form.querySelector('[data-field="canDrive"]').classList.add('has-error'); valid = false;
-        }
-        if (!data.hasCar) {
-          form.querySelector('[data-field="hasCar"]').classList.add('has-error'); valid = false;
+        if (!data.carAvailability) {
+          form.querySelector('[data-field="carAvailability"]').classList.add('has-error'); valid = false;
         }
         if (!data.depositor || data.depositor.length < 2) {
           form.querySelector('[data-field="depositor"]').classList.add('has-error'); valid = false;
@@ -2748,8 +2736,7 @@
           major: STATE.formData.major,
           phone: STATE.formData.phone,
           birthday: "'" + STATE.formData.birthday,
-          canDrive: STATE.formData.canDrive,
-          hasCar: STATE.formData.hasCar,
+          carAvailability: STATE.formData.carAvailability,
           depositor: STATE.formData.depositor,
           wishActivity: STATE.formData.wishActivity,
           starType: STAR_TYPES[STATE.resultType].name,
