@@ -1599,12 +1599,12 @@
           <div class="s4-card">
             <div class="ic">🔭</div>
             <div class="ct">정기 관측</div>
-            <div class="cd">매달 함께하는<br>별자리 관측</div>
+            <div class="cd">함께하는<br>별자리 관측</div>
           </div>
           <div class="s4-card">
-            <div class="ic">📖</div>
-            <div class="ct">학술회</div>
-            <div class="cd">천체에 대해<br>함께 배워요</div>
+            <div class="ic">🌕</div>
+            <div class="ct">달 관측회</div>
+            <div class="cd">보름달이 떠오르는 날,<br>망원경으로 함께 달을 봐요</div>
           </div>
           <div class="s4-card">
             <div class="ic">⛺</div>
@@ -1886,7 +1886,7 @@
             { text: '별 보면서 이야기하는 거 자체가 좋을 것 같아요', type: 'first' },
             { text: 'MT나 번개 관측이요! 분위기가 좋을 것 같아', type: 'yard' },
             { text: '관측 원정이요. 먼 곳에서 보는 별이 진짜잖아요', type: 'explorer' },
-            { text: '학술회요. 천체물리 토론 하고 싶어요', type: 'obsessed' }
+            { text: '달 관측회요. 보름달을 망원경으로 가까이 보고 싶어요', type: 'obsessed' }
           ]
         },
         {
@@ -2755,12 +2755,12 @@
           headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify(payload)
         })
-        .then(function(res) {
-          console.log('[STARFALL] Fetch completed. Status:', res.status, 'Type:', res.type);
-        })
-        .catch(function(err) {
-          console.error('[STARFALL] Submit error:', err);
-        });
+          .then(function (res) {
+            console.log('[STARFALL] Fetch completed. Status:', res.status, 'Type:', res.type);
+          })
+          .catch(function (err) {
+            console.error('[STARFALL] Submit error:', err);
+          });
       }
 
       /* ═══════════════════════════════════════
